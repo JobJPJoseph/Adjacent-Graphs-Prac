@@ -13,7 +13,6 @@ class SocialNetwork {
     let obj = {
       id: objId,
       name: name
-
     }
 
     this.users[objId] = obj;
@@ -24,10 +23,18 @@ class SocialNetwork {
 
   getUser(userID) {
     // Your code here
+    let result = this.users[userID];
+    return (result) ? result : null;
   }
 
   follow(userID1, userID2) {
     // Your code here
+    // this.follows mimics this.user by using the same key
+    // each bucket in the hash table is a Set
+    if (this.getUser(userID1)  === null || this.getUser(userID2) === null) return false;
+
+    if (!this.follows[userID1].has(userID2)) this.follows[userID1].add(userID2);
+    return true;
   }
 
   getFollows(userID) {
