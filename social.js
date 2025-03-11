@@ -39,6 +39,8 @@ class SocialNetwork {
 
   getFollows(userID) {
     // Your code here
+    let set = this.follows[userID];
+    return set;
   }
 
   getFollowers(userID) {
