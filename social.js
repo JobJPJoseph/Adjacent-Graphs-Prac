@@ -45,6 +45,19 @@ class SocialNetwork {
 
   getFollowers(userID) {
     // Your code here
+    let mainUserID = this.getUser(userID);
+    let followers = new Set();
+
+    for (let user in this.follows) {
+      let set = this.follows[user];
+
+      if (set.has(mainUserID.id)) {
+        followers.add(this.users[user].id);
+      }
+
+    }
+
+    return followers;
   }
 
   getRecommendedFollows(userID, degrees) {
