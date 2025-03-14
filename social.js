@@ -62,6 +62,38 @@ class SocialNetwork {
 
   getRecommendedFollows(userID, degrees) {
     // Your code here
+    // Think of it like this. 1 follows 2. Thats the immediate. Who does 2 follow? 3.
+    // Then that is the first degree of recomendations.
+
+    let visited = new Set();
+    visited.add(userID);
+
+    let queue = [[...this.getFollows(userID).values()]];
+
+    let recommended = [];
+
+    while (queue.length) {
+      let path = queue.shift();
+      let currentNode = path[path.length - 1];
+
+      if (!visited.has(currentNode)) {
+        // We test the length of the path to comfirm degrees
+        visited.add(currentNode);
+
+        if (path.length > 1 && path.length <= degrees + 1) recommended.push(currentNode);
+
+        // Now refill the queue
+        let children = this.getFollows(currentNode).values();
+
+        for (let node of children) {
+          queue.push([...path, node]);
+        }
+
+      }
+
+    }
+
+    return recommended;
   }
 }
 
